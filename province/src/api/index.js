@@ -320,7 +320,7 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
             var connection =  await oracledb.getConnection(dbConn)
 			var result =  await connection.execute(sqlStr, bindPara)
 			var ret = await fetchRowsFromRS(connection, result.outBinds.ret, fetchNum, OrgId, UploadParam, uuid, transNum, batch, url)
-			console.log(`xxxxx${ret}`)
+			// console.log(`xxxxx${ret}`)
 			resolve(ret)
         } catch (error) {
             reject(error)
