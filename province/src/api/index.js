@@ -342,17 +342,16 @@ var batchs = 0
 				  } else if (rows.length > 0) {
 					const postData = postDataFormat(rows, OrgId, UploadParam, uuid, transNum, batch)
 					// console.log(postData)
-					postDataToServ(url, postData).then(data => {
-						if (data) {				
-							const { errMsg } = data
-							if (errMsg != null) {
-													console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
-													fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-							} else {
-								console.log(errMsg)
-							}
+					var data = await postDataToServ(url, postData)
+					if (data) {
+						const { errMsg } = data
+						if (errMsg != null) {
+							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
+							await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
+						} else {
+							console.log(errMsg)
 						}
-					})
+					}
 				  }
         } catch (error) {
             reject(error)
