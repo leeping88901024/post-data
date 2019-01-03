@@ -320,7 +320,7 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
             var connection =  await oracledb.getConnection(dbConn)
 			var result =  await connection.execute(sqlStr, bindPara)
 			var ret = await fetchRowsFromRS(connection, result.outBinds.ret, fetchNum, OrgId, UploadParam, uuid, transNum, batch, url)
-			console.log(ret)
+			console.log(`hhhhh${ret}`)
 			resolve(ret)
         } catch (error) {
             reject(error)
@@ -346,7 +346,7 @@ var batchs = 0
 						if (errMsg != null) {
 							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
 							var ret = await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-							console.log(ret)
+							console.log(`这里永远不会执行到${ret}`)
 						} else {
 							console.log(errMsg)
 						}
