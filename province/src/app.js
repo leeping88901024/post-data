@@ -12,6 +12,7 @@ var oracledb = require('oracledb')
 
 var app = async (baseUrl) => {
     var data = getStatus(`${baseUrl}/Status`)
+    console.log(data)
     const { errMsg } = data
     if (!errMsg) {
         console.error(errMsg)
