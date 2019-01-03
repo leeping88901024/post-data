@@ -11,7 +11,7 @@ var { upload, getStatus } = require('./api')
 var oracledb = require('oracledb')
 
 var app = async (baseUrl) => {
-    var data = getStatus(`${baseUrl}/Status`)
+    var data = await getStatus(`${baseUrl}/Status`)
     console.log(data)
     const { errMsg } = data
     if (!errMsg) {
