@@ -25,8 +25,9 @@ var app = async (baseUrl) => {
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
     }
     sql = `BEGIN :ret := f2webshangdong.getTBiBldIssueSummary(:date_from, :date_to); END;`
-    var ret = await upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
-    console.log(ret)
+    upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000).then(ret => {
+        console.log(ret)
+    })
 }
 
 app(baseUrl);
