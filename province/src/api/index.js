@@ -336,7 +336,7 @@ var batchs = 0
 			  if (rows.length === 0) {   // no rows, or no more rows
 					console.log(`Posted ${UploadParam} dataSet successful from Database`)
 					doClose(connection, resultSet); // always close the ResultSet
-					resolve(2) // 传送完后 resolve
+					resolve(2) // 传送完后 resolve => 执行349行
 				  } else if (rows.length > 0) {
 					const postData = postDataFormat(rows, OrgId, UploadParam, uuid, transNum, batch)
 					// console.log(postData)
@@ -346,7 +346,7 @@ var batchs = 0
 						if (errMsg != null) {
 							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
 							var ret = await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-							console.log(`最后执行这里${ret}`)
+							console.log(`逐个跳出递归${ret}`)
 							resolve(ret)
 						} else {
 							console.log(errMsg)
