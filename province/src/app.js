@@ -1,7 +1,8 @@
 var {
     OrgId, 
     baseUrl,
-	TBiBldIssueSummary,  //6
+    TBiBldIssueSummary,  //6
+    TBiBldIssuing,
 } = require('./config')
 var {
 	post_date_from,
