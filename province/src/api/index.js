@@ -340,13 +340,14 @@ var batchs = 0
 				  } else if (rows.length > 0) {
 					const postData = postDataFormat(rows, OrgId, UploadParam, uuid, transNum, batch)
 					// console.log(postData)
-					var data = await postDataToServ(url, postData)
+					var data = await postDataToServ(url, postData) // 这里可以根据fetch的条数逐批量上传
 					if (data) {
 						const { errMsg } = data
 						if (errMsg != null) {
 							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
 							var ret = await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-							console.log(`这里永远不会执行到${ret}`)
+							console.log(`最后执行这里${ret}`)
+							resolve(ret)
 						} else {
 							console.log(errMsg)
 						}
