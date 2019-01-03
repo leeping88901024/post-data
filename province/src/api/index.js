@@ -352,33 +352,6 @@ var batchs = 0
             reject(error)
         }
     })
-  
-	  /*
-  resultSet.getRows( // get numRows rows
-    numRows,
-    function (err, rows) {
-      if (err) {
-        doClose(connection, resultSet); // always close the ResultSet
-      } else if (rows.length === 0) {   // no rows, or no more rows
-        console.log(`Posted ${UploadParam} dataSet successful from Database...`)
-        doClose(connection, resultSet); // always close the ResultSet
-      } else if (rows.length > 0) {
-		const postData = postDataFormat(rows, OrgId, UploadParam, uuid, transNum, batch)
-		// console.log(postData)
-		postDataToServ(url, postData).then(data => {
-			if (data) {				
-				const { errMsg } = data
-				if (errMsg != null) {
-										console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
-										fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-				} else {
-                    console.log(errMsg)
-				}
-			}
-		})
-      }
-    });
-	*/
 }
 
 // Note: connections should always be released when not needed

@@ -172,4 +172,4 @@ function schedule() {
 })
 }
 
-setInterval(schedule, 1000 * 5);
+setInterval(schedule, 1000 * 60);

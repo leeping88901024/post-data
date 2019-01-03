@@ -1,2 +1,5 @@
 province/node_modules
+province/lib
 country/node_modules
+province/src/config.js
+country/src/config
