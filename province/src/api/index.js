@@ -43,12 +43,15 @@ async function getStatus(url) {
 }
 
 async function postDataToServ (url, postData) {
-    try {
-        const res = await instance.post(url,postData)
+	return new Promise(async (resolve, reject) => {
+        try {
+            const res = await instance.post(url,postData)
 		const { data } = res
-		return data
-    } catch (err) {
-    }
+            resolve(data)
+        } catch (error) {
+            reject(error)
+        }
+    })
 }
 
 // 发送的数据集
