@@ -10,7 +10,7 @@ var {
 var { upload, getStatus } = require('./api')
 var oracledb = require('oracledb')
 
-var app = (baseUrl) => {
+var app = async (baseUrl) => {
     var data = getStatus(`${baseUrl}/Status`)
     const { errMsg } = data
     if (!errMsg) {
@@ -26,6 +26,7 @@ var app = (baseUrl) => {
     }
     sql = `BEGIN :ret := f2webshangdong.getTBiBldIssueSummary(:date_from, :date_to); END;`
     var ret = await upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(ret)
 }
 
 app(baseUrl);
