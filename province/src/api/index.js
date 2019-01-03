@@ -31,12 +31,15 @@ const instance = axios.create({
 
 // get 请求
 async function getStatus(url) {
-    try {
-        const res = await instance.get(url)
-        const { data } = res
-        return data
-    } catch (err) {
-    }
+	return new Promise(async (resolve, reject) => {
+        try {
+            const res = await instance.get(url)
+			const { data } = res
+            resolve(data)
+        } catch (error) {
+            reject(error)
+        }
+    })
 }
 
 async function postDataToServ (url, postData) {
