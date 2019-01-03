@@ -319,11 +319,9 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
         try {
             var connection =  await oracledb.getConnection(dbConn)
 			var result =  await connection.execute(sqlStr, bindPara)
-			 await fetchRowsFromRS(connection, result.outBinds.ret, fetchNum, OrgId, UploadParam, uuid, transNum, batch, url).then(ret => {
-				console.log('iiii')
-				console.log(ret)
-				resolve(1)
-			});
+			var ret = await fetchRowsFromRS(connection, result.outBinds.ret, fetchNum, OrgId, UploadParam, uuid, transNum, batch, url)
+			console.log(ret)
+			resolve(ret)
         } catch (error) {
             reject(error)
         }
