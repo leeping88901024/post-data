@@ -23,23 +23,6 @@ const {
 const app = async () => {
     var sql
     var bindPara 
-
-    // -s
-    bindPara = {
-        ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
-    }
-    /*
-    // 2. 血液制备记录
-    sql = `begin :ret := hhhhhhhh.bloodstation_issue; end;`
-    upload(BLOODSTATION_PREP, bindPara, sql, 100).then(ret => {
-        const { success } = ret
-        if (success === 1) {
-            console.log('successful 2. BLOODSTATION_PREP upload to server')
-        } else {
-            console.log(ret)
-        }
-    })
-    */
    // -b
    bindPara = {
         date_from: post_date_from,
@@ -51,6 +34,11 @@ const app = async () => {
     sql = `begin :ret := hhhhhhhh.bloodstation_reagent(:date_from, :date_to); end;`
     var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
     result(ret1, BLOODSTATION_REAGENT)
+
+    // 2. 血液制备记录
+    sql = `begin :ret := hhhhhhhh.bloodstation_prep(:date_from, :date_to); end;`
+    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
+    result(ret2, BLOODSTATION_PREP)
 
     // 3. 血液供应记录   ___________OK_____________    
     sql = `begin :ret := hhhhhhhh.bloodstation_issue(:date_from, :date_to); end;`

@@ -26,7 +26,7 @@ const fetchRowsFromRS = async (connection, resultSet, numRows, url) => {
         try {
             let rows = await resultSet.getRows(numRows)
             if (rows.length === 0) {
-                console.log('no rows, or no more rows')
+                // console.log('no rows, or no more rows')
                 console.log(`Posted ( ${url} ) dataSet successful from Database`)
                 await doClose(connection, resultSet)
                 resolve(2)
@@ -39,6 +39,8 @@ const fetchRowsFromRS = async (connection, resultSet, numRows, url) => {
                     batchs ++
                     var p = fetchRowsFromRS(connection, resultSet, numRows, url)
                     resolve(p)
+                } else {
+                    console.log(`Fail post, message: ${JSON.stringify(ret)}`)
                 }
             }
         } catch (error) {
