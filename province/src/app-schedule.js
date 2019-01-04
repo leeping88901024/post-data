@@ -180,4 +180,4 @@ function schedule() {
 })
 }
 
-setInterval(schedule, 1000 * 60);
+setInterval(schedule, 1000 * 60* 60);
