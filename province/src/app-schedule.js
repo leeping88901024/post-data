@@ -25,7 +25,7 @@ var bindPara
 
 
 async function schedule() {
-	getStatus(`${baseUrl}/Status`).then(data => {
+	var data = await getStatus(`${baseUrl}/Status`)
 	console.log(data)
 	const { errMsg } = data
 	if (!errMsg) {
@@ -177,7 +177,6 @@ async function schedule() {
 	var ret14 = await upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
 	console.log(`数据集（最新）: ${TBiHospTransReaction} 上传完毕。Flag: ${ret14}`)
 	console.log('最新数据上传完毕')
-})
 }
 
 setInterval(schedule, 1000 * 60* 60);
