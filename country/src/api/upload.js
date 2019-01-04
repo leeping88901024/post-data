@@ -34,6 +34,7 @@ const fetchRowsFromRS = async (connection, resultSet, numRows, url) => {
                 const postData = mapped(url, rows)
 				// console.log(postData)
                 var ret = await uploadToServer(postData, url)
+                console.log(ret)
                 console.log(`Fetch(&Post) ( ${url} ) dataSet(#${batchs}}) successful from Database...`)
                 batchs ++
                 var p = fetchRowsFromRS(connection, resultSet, numRows, url)
