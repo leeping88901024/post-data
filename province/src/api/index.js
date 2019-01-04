@@ -314,9 +314,11 @@ function postDataFormat(rows, orgId, UploadParam, uuid, transNum, batch) {
  * @param batch 不是批量则为 {}
  * @param fetchNum 游标fetch数据的条数
  */
+var batchs = 1
 async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara, batch, fetchNum) {
 	return new Promise(async (resolve, reject) => {
         try {
+			// batchs = 1
             var connection =  await oracledb.getConnection(dbConn)
 			var result =  await connection.execute(sqlStr, bindPara)
 			var ret = await fetchRowsFromRS(connection, result.outBinds.ret, fetchNum, OrgId, UploadParam, uuid, transNum, batch, url)
@@ -327,11 +329,10 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
         }
     })
 }
-var batchs = 0
  async function fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url) {
 	 return new Promise(async (resolve, reject) => {
         try {
-              batchs ++
+              // batchs ++
 			  var rows = await resultSet.getRows(numRows)
 			  if (rows.length === 0) {   // no rows, or no more rows
 					console.log(`Posted ${UploadParam} dataSet successful from Database`)
@@ -345,8 +346,9 @@ var batchs = 0
 						const { errMsg } = data
 						if (errMsg != null) {
 							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
+							batchs ++
 							var ret = await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
-							console.log(`逐个跳出递归${ret}`)
+							// console.log(`逐个跳出递归${ret}`)
 							resolve(ret)
 						} else {
 							console.log(errMsg)

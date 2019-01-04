@@ -1,4 +1,4 @@
-const {upload } = require('./upload')
+const { upload } = require('./upload')
 
 module.exports = {
     upload
