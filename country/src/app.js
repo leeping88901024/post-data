@@ -30,12 +30,12 @@ const app = async () => {
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
     }
 
-    // 1. 检测试剂信息
+    // 1. 检测试剂信息 ___________OK_____________
     sql = `begin :ret := hhhhhhhh.bloodstation_reagent(:date_from, :date_to); end;`
     var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
     result(ret1, BLOODSTATION_REAGENT)
 
-    // 2. 血液制备记录
+    // 2. 血液制备记录 ___________OK_____________
     sql = `begin :ret := hhhhhhhh.bloodstation_prep(:date_from, :date_to); end;`
     var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
     result(ret2, BLOODSTATION_PREP)
@@ -55,6 +55,21 @@ const app = async () => {
     var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
     result(ret5, BLOODSTATION_SCRAPPED)
 
+    // 7. 献血者信息接口
+    sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
+    // var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
+    // result(ret7, BLOODSTATION_DONOR)
+
+    // 8. 特殊稀有血型献血者信息
+    sql = `begin :ret := hhhhhhhh.bloodstation_unusual(:date_from, :date_to); end;`
+    // var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, 1000)
+    // result(ret8, BLOODSTATION_UNUSUAL)
+
+    // 9. 无偿献血偿还记录 
+    sql = `begin :ret := hhhhhhhh.bloodstation_payback(:date_from, :date_to); end;`
+    var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, 1000)
+    result(ret9, BLOODSTATION_PAYBACK)
+
     // -s
 
     // 6. 库存记录    ___________OK_____________
@@ -64,41 +79,6 @@ const app = async () => {
     sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
     var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
     result(ret5, BLOODSTATION_STOCKRECORD)
-    /*
-    // 7. 献血者档案信息
-    sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
-    var ret5 = await upload(BLOODSTATION_DONOR, bindPara, sql, 100)
-    
-    bindPara = {
-        date_from:'2018/01/10',
-        date_to:'2018/01/15',
-        ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
-    }
-    sql = `begin :ret := hhhhhhhh.bloodstation_unusual(:date_from, :date_to); end;`
-    upload(BLOODSTATION_UNUSUAL, bindPara, sql, 100).then(ret => {
-        const { success } = ret
-        if (success === 1) {
-            console.log('successful upload 8. BLOODSTATION_UNUSUAL to server')
-        } else {
-            console.log(ret)
-        }
-    })
-
-    bindPara = {
-        date_from:'2018/01/10',
-        date_to:'2018/01/15',
-        ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
-    }
-    sql = `begin :ret := hhhhhhhh.bloodstation_payback(:date_from, :date_to); end;`
-    upload(BLOODSTATION_PAYBACK, bindPara, sql, 100).then(ret => {
-        const { success } = ret
-        if (success === 1) {
-            console.log('successful upload 9. BLOODSTATION_PAYBACK to server')
-        } else {
-            console.log(ret)
-        }
-    })
-    */
 }
 
 app()
