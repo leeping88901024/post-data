@@ -10,6 +10,13 @@ var {
     TBiBlacklist,
     TBiHospIllmanUsebld,
     TBiHospTransReaction,
+    TBiUseBldOrgan,
+    TBiBldAllocation,
+    TBiBldReimburs,
+    TBiBldAllocationSummary,
+    TBiHospitalInfo,
+    TBiHospStock,
+    TBiHospStockDetail
 
 } = require('./config')
 var {
@@ -48,7 +55,7 @@ var app = async (baseUrl) => {
 
 	sql = `BEGIN :ret := f2webshangdong.getTBiBldAllocationSummary; END;`
 	rets = await upload(sql, OrgId, TBiBldAllocationSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
-    console.log(`数据集: ${TBiBldReimburs} 上传完毕。Flag: ${rets}`)
+    console.log(`数据集: ${TBiBldAllocationSummary} 上传完毕。Flag: ${rets}`)
     
 	sql = `BEGIN :ret := f2webshangdong.getTBiHospitalInfo; END;`
     rets = await upload(sql, OrgId, TBiHospitalInfo, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
