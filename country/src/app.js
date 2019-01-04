@@ -76,7 +76,7 @@ const app = async () => {
     }
     sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
     var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
-    result(ret6, BLOODSTATION_STOCKRECORD)
+    result(ret5, BLOODSTATION_STOCKRECORD)
     /*
     // 7. 献血者档案信息
     sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`

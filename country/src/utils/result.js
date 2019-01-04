@@ -1,6 +1,6 @@
 const result = (ret, flag) => {
-    if (ret === 1) {
-        console.log(`upload to ${flag} successful.`)
+    if (ret === 2) {
+        console.log(`上传至 ${flag} 的数据集上传成功。`)
     } else {
 		console.log(ret)
 	}
