@@ -124,7 +124,7 @@ var app = async (baseUrl) => {
     var ret7 = await upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, fetchNum)
     console.log(`数据集: ${TBiHospTransReaction} 上传完毕。Flag: ${ret7}`)
 
-    console.log(`时间为${post_date_from}~${post_date_to}的数据上传完毕，执行app-schedule启动定时上传最新数据。`)
+    console.log(`时间为${post_date_from}~${post_date_to}的数据上传完毕，执行app-schedule启动定时上传最新数据。${new Date()}`)
 }
 
 app(baseUrl);
