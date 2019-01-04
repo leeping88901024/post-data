@@ -24,7 +24,7 @@ var sql
 var bindPara
 
 
-function schedule() {
+async function schedule() {
 	getStatus(`${baseUrl}/Status`).then(data => {
 	console.log(data)
 	const { errMsg } = data
