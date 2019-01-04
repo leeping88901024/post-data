@@ -34,19 +34,16 @@ getStatus(`${baseUrl}/Status`).then(data => {
 	// upload(sql, OrgId, 'TBiUseBldOrgan', '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataservbat`, { OrgId }, '665'); //
 
 	// 2.血液调拨信息数据集 TBiBldAllocation
-	
 	sql = `BEGIN :ret := f2webshangdong.getTBiBldAllocation; END;`
 	upload(sql, OrgId, TBiBldAllocation, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
 	
 	// 3.用血退费信息(互助金)数据集 TBiBldRefund
 	
 	// 4.用血偿还信息数据集 TBiBldReimburs
-	
 	sql = `BEGIN :ret := f2webshangdong.getTBiBldReimburs; END;`
 	upload(sql, OrgId, TBiBldReimburs, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
 
 	// 5.血液调拨汇总数据集 TBiBldAllocationSummary
-	
 	sql = `BEGIN :ret := f2webshangdong.getTBiBldAllocationSummary; END;`
 	upload(sql, OrgId, TBiBldAllocationSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
 	

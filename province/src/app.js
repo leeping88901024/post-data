@@ -1,3 +1,4 @@
+// 注使用同步的方式一个数据集传完传下一个数据集，执行该脚本后无需逐个执行app-b-*.js
 var {
     OrgId, 
     baseUrl,
@@ -28,12 +29,45 @@ var app = async (baseUrl) => {
     }
     var sql
     var bindPara
+
+    // -s
+    bindPara = {
+		ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
+	}
+	sql = `BEGIN :ret := f2webshangdong.getTBiUseBldOrgan; END;`
+	var rets = await upload(sql, OrgId, TBiUseBldOrgan, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiUseBldOrgan} 上传完毕。Flag: ${rets}`)
+
+	sql = `BEGIN :ret := f2webshangdong.getTBiBldAllocation; END;`
+	rets = await upload(sql, OrgId, TBiBldAllocation, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiBldAllocation} 上传完毕。Flag: ${rets}`)
+    
+	sql = `BEGIN :ret := f2webshangdong.getTBiBldReimburs; END;`
+	rets = await upload(sql, OrgId, TBiBldReimburs, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiBldReimburs} 上传完毕。Flag: ${rets}`)
+
+	sql = `BEGIN :ret := f2webshangdong.getTBiBldAllocationSummary; END;`
+	rets = await upload(sql, OrgId, TBiBldAllocationSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiBldReimburs} 上传完毕。Flag: ${rets}`)
+    
+	sql = `BEGIN :ret := f2webshangdong.getTBiHospitalInfo; END;`
+    rets = await upload(sql, OrgId, TBiHospitalInfo, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiHospitalInfo} 上传完毕。Flag: ${rets}`)
+
+	sql = `BEGIN :ret := f2webshangdong.getTBiHospStock; END;`
+	rets = await upload(sql, OrgId, TBiHospStock, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiHospStock} 上传完毕。Flag: ${rets}`)
+    
+	sql = `BEGIN :ret := f2webshangdong.getTBiHospStockDetail; END;`
+    rets = await upload(sql, OrgId, TBiHospStockDetail, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+    console.log(`数据集: ${TBiHospStockDetail} 上传完毕。Flag: ${rets}`)
+
+    // -b
     bindPara = {
         date_from: post_date_from,
         date_to: post_date_to,
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
     }
-    // b-0
     sql = `BEGIN :ret := f2webshangdong.getTBiBldIssueSummary(:date_from, :date_to); END;`
     var ret0 = await upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
     console.log(`数据集: ${TBiBldIssueSummary} 上传完毕。Flag: ${ret0}`)
@@ -65,6 +99,7 @@ var app = async (baseUrl) => {
     sql = `BEGIN :ret := f2webshangdong.gettbihosptransreaction(:date_from, :date_to); END;`
     var ret7 = await upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
     console.log(`数据集: ${TBiHospTransReaction} 上传完毕。Flag: ${ret7}`)
+    console.log(`时间为${post_date_from}~${post_date_to}的数据上传完毕，执行app-schedule启动定时上传最新数据。`)
 }
 
 app(baseUrl);

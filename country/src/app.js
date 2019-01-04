@@ -69,7 +69,7 @@ const app = async () => {
     result(ret5, BLOODSTATION_SCRAPPED)
 
     // -s
-    
+
     // 6. 库存记录    ___________OK_____________
     bindPara = {
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
@@ -80,14 +80,8 @@ const app = async () => {
     /*
     // 7. 献血者档案信息
     sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
-    upload(BLOODSTATION_DONOR, bindPara, sql, 100).then(ret => {
-        const { success } = ret
-        if (success === 1) {
-            console.log('successful upload 7. BLOODSTATION_DONOR to server')
-        } else {
-            console.log(ret)
-        }
-    })
+    var ret5 = await upload(BLOODSTATION_DONOR, bindPara, sql, 100)
+    
     bindPara = {
         date_from:'2018/01/10',
         date_to:'2018/01/15',

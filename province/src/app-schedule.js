@@ -51,7 +51,8 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiBldIssuing';
 	  commit;
 	end;`
-    upload(sql, OrgId, TBiBldIssuing, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
+	var ret7 = await upload(sql, OrgId, TBiBldIssuing, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
+	console.log(`数据集（最新）: ${TBiBldIssuing} 上传完毕。Flag: ${ret7}`)
 	// 变更sql和参数
 	
 	// 10.血液发放单明细数据集 TBiBldIssuingDetail
@@ -68,8 +69,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiBldIssuingDetail';
 	  commit;
 	end;`
-	upload(sql, OrgId, TBiBldIssuingDetail, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
-	
+	var ret10 = await upload(sql, OrgId, TBiBldIssuingDetail, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiBldIssuingDetail} 上传完毕。Flag: ${ret10}`)
+
 	// 6.血液发放汇总数据集 TBiBldIssueSummary
 	sql = `declare
 	 last_post varchar2(100);
@@ -84,8 +86,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiBldIssueSummary';
 	  commit;
 	end;`
-	upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
-	
+	var ret6 = await upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiBldIssueSummary} 上传完毕。Flag: ${ret6}`)
+
 	// ### 订血
 	// 8.机构订血单据信息数据集 TBiOrgOrderBld
 	sql = `declare
@@ -101,7 +104,7 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiOrgOrderBld';
 	  commit;
 	end;`
-	upload(sql, OrgId, TBiOrgOrderBld, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
+	upload(sql, OrgId, TBiOrgOrderBld, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
 	
 	// ##########################先传8#############################
 	// 9.机构订血单据汇总信息数据集 TBiOrgOrderBldSummary
@@ -118,8 +121,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiOrgOrderBldSummary';
 	  commit;
 	end;`
-	upload(sql, OrgId, TBiOrgOrderBldSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
-	
+	var ret9 = await upload(sql, OrgId, TBiOrgOrderBldSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiOrgOrderBldSummary} 上传完毕。Flag: ${ret9}`)
+
 	// 11.黑名单信息数据集 TBiBlacklist
 	// 最早数据 1990/12/31
 	sql = `declare
@@ -135,8 +139,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiBlacklist';
 	  commit;
 	end;`
-    upload(sql, OrgId, TBiBlacklist, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
-	
+    var ret11 = await upload(sql, OrgId, TBiBlacklist, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiBlacklist} 上传完毕。Flag: ${ret11}`)
+
 	// ## 医院
 	// 13.医院患者用血信息数据集 TBiHospIllmanUsebld
 	sql = `declare
@@ -152,8 +157,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiHospIllmanUsebld';
 	  commit;
 	end;`
-    upload(sql, OrgId, TBiHospIllmanUsebld, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
-	
+    var ret13 = await upload(sql, OrgId, TBiHospIllmanUsebld, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiHospIllmanUsebld} 上传完毕。Flag: ${ret13}`)
+
 	// 14.医院输血反应信息数据集 TBiHospTransReaction
 	sql = `declare
 	 last_post varchar2(100);
@@ -168,7 +174,9 @@ function schedule() {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'TBiHospTransReaction';
 	  commit;
 	end;`
-    upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 100);
+	var ret14 = await upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
+	console.log(`数据集（最新）: ${TBiHospTransReaction} 上传完毕。Flag: ${ret14}`)
+	console.log('最新数据上传完毕')
 })
 }
 
