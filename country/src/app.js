@@ -57,8 +57,8 @@ const app = async () => {
 
     // 7. 献血者信息接口
     sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
-    // var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
-    // result(ret7, BLOODSTATION_DONOR)
+    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
+    result(ret7, `7.${BLOODSTATION_DONOR}`)
 
     // 8. 特殊稀有血型献血者信息
     sql = `begin :ret := hhhhhhhh.bloodstation_unusual(:date_from, :date_to); end;`
