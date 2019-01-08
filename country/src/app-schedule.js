@@ -31,44 +31,55 @@ const app = async () => {
     }
 
     // 1. 检测试剂信息
-    sql = `begin :ret := hhhhhhhh.bloodstation_reagent(:date_from, :date_to); end;`
+    sql = `declare
+	 last_post varchar2(100);
+	 now_post varchar2(100);
+	begin
+	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
+	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
+	  :ret := hhhhhhhh.bloodstation_reagent(:date_from, :date_to);
+	  -- 插入或者变更时间标记
+	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/reagent/update',sysdate)
+	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
+	  commit;
+	end;`
     var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
     result(ret1, BLOODSTATION_REAGENT)
 
     // 2. 血液制备记录
     sql = `begin :ret := hhhhhhhh.bloodstation_prep(:date_from, :date_to); end;`
-    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
-    result(ret2, BLOODSTATION_PREP)
+    //var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
+    //result(ret2, BLOODSTATION_PREP)
 
-    // 3. 血液供应记录    
+    // 3. 血液供应记录   
     sql = `begin :ret := hhhhhhhh.bloodstation_issue(:date_from, :date_to); end;`
-    var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, 1000)
-    result(ret3, BLOODSTATION_ISSUE)
+    //var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, 1000)
+    //result(ret3, BLOODSTATION_ISSUE)
 
     // 4. 血液调剂记录    ___________OK but + 调入_____________
     sql = `begin :ret := hhhhhhhh.bloodstation_adjust(:date_from, :date_to); end;`
-    var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, 1000)
-    result(ret4, BLOODSTATION_ADJUST)
+    //var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, 1000)
+    //result(ret4, BLOODSTATION_ADJUST)
 
     // 5. 血液报废记录
     sql = `begin :ret := hhhhhhhh.bloodstation_scrapped(:date_from, :date_to); end;`
-    var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
-    result(ret5, BLOODSTATION_SCRAPPED)
+    //var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
+    //result(ret5, BLOODSTATION_SCRAPPED)
 
     // 7. 献血者信息接口
     sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
-    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
-    result(ret7, `7.${BLOODSTATION_DONOR}`)
+    //var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
+    //result(ret7, `7.${BLOODSTATION_DONOR}`)
 
     // 8. 特殊稀有血型献血者信息
     sql = `begin :ret := hhhhhhhh.bloodstation_unusual(:date_from, :date_to); end;`
-    var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, 1000)
-    result(ret8, BLOODSTATION_UNUSUAL)
+    //var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, 1000)
+    //result(ret8, BLOODSTATION_UNUSUAL)
 
     // 9. 无偿献血偿还记录 
     sql = `begin :ret := hhhhhhhh.bloodstation_payback(:date_from, :date_to); end;`
-    var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, 1000)
-    result(ret9, BLOODSTATION_PAYBACK)
+    //var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, 1000)
+    //result(ret9, BLOODSTATION_PAYBACK)
 
     // -s
 
@@ -77,8 +88,8 @@ const app = async () => {
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
     }
     sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
-    var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
-    result(ret5, BLOODSTATION_STOCKRECORD)
+    //var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
+    //result(ret5, BLOODSTATION_STOCKRECORD)
 }
 
 app()
