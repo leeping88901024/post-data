@@ -20,7 +20,7 @@ const {
      post_date_to
  } = post_date
 
-const app = async () => {
+const schedule = async () => {
     var sql
     var bindPara 
    // -b
@@ -169,4 +169,4 @@ const app = async () => {
     result(ret5, BLOODSTATION_STOCKRECORD)
 }
 
-app()
+setInterval(schedule, 1000 * 60* 60);
