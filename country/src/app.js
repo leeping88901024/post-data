@@ -32,33 +32,33 @@ const app = async () => {
 
     // 1. 检测试剂信息
     sql = `begin :ret := hhhhhhhh.bloodstation_reagent(:date_from, :date_to); end;`
-    var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
-    result(ret1, BLOODSTATION_REAGENT)
+    //var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
+    //result(ret1, BLOODSTATION_REAGENT)
 
     // 2. 血液制备记录
     sql = `begin :ret := hhhhhhhh.bloodstation_prep(:date_from, :date_to); end;`
-    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
-    result(ret2, BLOODSTATION_PREP)
+    //var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
+    //result(ret2, BLOODSTATION_PREP)
 
     // 3. 血液供应记录    
     sql = `begin :ret := hhhhhhhh.bloodstation_issue(:date_from, :date_to); end;`
-    var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, 1000)
-    result(ret3, BLOODSTATION_ISSUE)
+    //var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, 1000)
+    //result(ret3, BLOODSTATION_ISSUE)
 
     // 4. 血液调剂记录    ___________OK but + 调入_____________
     sql = `begin :ret := hhhhhhhh.bloodstation_adjust(:date_from, :date_to); end;`
-    var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, 1000)
-    result(ret4, BLOODSTATION_ADJUST)
+    //var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, 1000)
+    //result(ret4, BLOODSTATION_ADJUST)
 
     // 5. 血液报废记录
     sql = `begin :ret := hhhhhhhh.bloodstation_scrapped(:date_from, :date_to); end;`
-    var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
-    result(ret5, BLOODSTATION_SCRAPPED)
+    //var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
+    //result(ret5, BLOODSTATION_SCRAPPED)
 
     // 7. 献血者信息接口
     sql = `begin :ret := hhhhhhhh.bloodstation_donor(:date_from, :date_to); end;`
-    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
-    result(ret7, `7.${BLOODSTATION_DONOR}`)
+    //var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
+    //result(ret7, `7.${BLOODSTATION_DONOR}`)
 
     // 8. 特殊稀有血型献血者信息
     sql = `begin :ret := hhhhhhhh.bloodstation_unusual(:date_from, :date_to); end;`
