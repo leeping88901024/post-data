@@ -6,7 +6,7 @@ const { BASEURL, UID, PID  } = base
 
 const instance = axios.create({
     baseURL: BASEURL,
-    timeout: 1000 * 60* 10,
+    timeout: 1000 * 60* 60 * 3,
     headers: { 'Content-Type': 'application/json' }
 }) 
 
