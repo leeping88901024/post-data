@@ -164,5 +164,4 @@ const schedule = async () => {
     result(ret5, BLOODSTATION_STOCKRECORD)
 }
 
-//setInterval(schedule, 1000 * 60 * 10);
-schedule()
+setInterval(schedule, 1000 * 60 * 10);
