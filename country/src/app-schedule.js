@@ -25,8 +25,6 @@ const schedule = async () => {
     var bindPara 
    // -b
    bindPara = {
-        date_from: post_date_from,
-        date_to: post_date_to ,
         ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
     }
 
@@ -161,9 +159,6 @@ const schedule = async () => {
     // -s
 
     // 6. 库存记录  -- 覆盖
-    bindPara = {
-        ret:  { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }
-    }
     sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
     var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
     result(ret5, BLOODSTATION_STOCKRECORD)
