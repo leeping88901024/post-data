@@ -21,6 +21,8 @@ const {
 } = require('./cvt')
 const { dbConn } = require('../config')
 
+const { PingHost } = require('./checkHost')
+
 // 使用https在这里设置证书
 
 const instance = axios.create({
@@ -385,5 +387,6 @@ function doClose(connection, resultSet) {
 module.exports = {
 	postDataToServ,
     getStatus,
-	upload
+	upload,
+	PingHost
 }

@@ -2,6 +2,7 @@
 var {
     OrgId, 
     baseUrl,
+    HOST,
     TBiBldIssueSummary,  //6
     TBiBldIssuing,
     TBiBldIssuingDetail,
@@ -24,10 +25,18 @@ var {
     post_date_to,
     fetchNum
 } = require('./config-post-date')
-var { upload, getStatus } = require('./api')
+var { upload, getStatus, PingHost } = require('./api')
 var oracledb = require('oracledb')
 
-var app = async (baseUrl) => {
+var app = async (baseUrl, host) => {
+    // ping host to check host
+    var res = await PingHost(host)
+    if (!res.alive) {
+        console.log(`Ping host <${host}> fail, please check the network connection.`)
+        return
+    }
+
+    // ready to post data
     var data = await getStatus(`${baseUrl}/Status`)
     console.log(data)
     const { errMsg } = data
@@ -127,4 +136,4 @@ var app = async (baseUrl) => {
     console.log(`时间为${post_date_from}~${post_date_to}的数据上传完毕，执行app-schedule启动定时上传最新数据。${new Date()}`)
 }
 
-app(baseUrl);
+app(baseUrl, HOST);

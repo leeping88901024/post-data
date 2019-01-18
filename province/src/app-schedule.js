@@ -25,6 +25,7 @@ var bindPara
 
 
 async function schedule() {
+	
 	var data = await getStatus(`${baseUrl}/Status`)
 	console.log(data)
 	const { errMsg } = data
