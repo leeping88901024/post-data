@@ -187,4 +187,4 @@ async function schedule() {
 	console.log('最新数据上传完毕')
 }
 
-setInterval(schedule, 1000 * 60* 60);
+setInterval(schedule, 1000 * 60* 10);
