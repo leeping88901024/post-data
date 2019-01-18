@@ -2,7 +2,7 @@ var Service = require('node-windows').Service;
 
 // Create a new service object
 var svc = new Service({
-  name:'Schedule(Province)',
+  name:'Schedule Province',
   description: 'Schedule that post date to province.',
   script: require('path').join(__dirname,'app-schedule.js'),
   env:{
