@@ -1,6 +1,7 @@
 var {
 	OrgId, 
-    baseUrl,
+	baseUrl,
+	HOST,
     TBiUseBldOrgan,  //1
 	TBiBldAllocation,  //2
 	TBiBldRefund,  //3
@@ -18,14 +19,20 @@ var {
 	TBiHospStock, //15
 	TBiHospStockDetail,  //16
 } = require('./config')
-var { upload, getStatus } = require('./api')
+var { upload, getStatus, PingHost } = require('./api')
 var oracledb = require('oracledb')
 var sql
 var bindPara
 
 
-async function schedule() {
-	
+async function schedule(host) {
+	// ping host to check host
+    var res = await PingHost(host)
+    if (!res.alive) {
+        console.log(`Ping host <${host}> fail, please check the network connection.`)
+        return
+	}
+	// ready to post data
 	var data = await getStatus(`${baseUrl}/Status`)
 	console.log(data)
 	const { errMsg } = data
@@ -180,4 +187,4 @@ async function schedule() {
 	console.log('最新数据上传完毕')
 }
 
-setInterval(schedule, 1000 * 60* 60);
+setInterval(schedule(HOST), 1000 * 60* 60);
