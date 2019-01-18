@@ -1,0 +1,2 @@
+2019-01-18 16:29:22 - Starting D:\Program Files\nodejs\node.exe  --harmony C:\Users\Lee\Desktop\post-data\province\node_modules\node-windows\lib\wrapper.js --file C:\Users\Lee\Desktop\post-data\province\src\app-schedule.js --log "Schedule Province wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2019-01-18 16:29:22 - Started 10712
