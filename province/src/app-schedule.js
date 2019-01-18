@@ -25,11 +25,11 @@ var sql
 var bindPara
 
 
-async function schedule(host) {
+async function schedule() {
 	// ping host to check host
-    var res = await PingHost(host)
+    var res = await PingHost(HOST)
     if (!res.alive) {
-        console.log(`Ping host <${host}> fail, please check the network connection.`)
+        console.log(`Ping host <${HOST}> fail, please check the network connection.`)
         return
 	}
 	// ready to post data
@@ -187,4 +187,4 @@ async function schedule(host) {
 	console.log('最新数据上传完毕')
 }
 
-setInterval(schedule(HOST), 1000 * 60* 60);
+setInterval(schedule, 1000 * 60* 60);
