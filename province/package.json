@@ -13,7 +13,6 @@
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
     "dayjs": "^1.7.8",
-    "node-windows": "^0.1.14",
     "oracledb": "^3.0.1",
     "ping": "^0.2.2",
     "winston": "^3.1.0"
