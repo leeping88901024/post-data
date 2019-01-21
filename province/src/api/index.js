@@ -337,7 +337,7 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
               // batchs ++
 			  var rows = await resultSet.getRows(numRows)
 			  if (rows.length === 0) {   // no rows, or no more rows
-					console.log(`Posted ${UploadParam} dataSet successful from Database`)
+					// console.log(`Posted ${UploadParam} dataSet successful from Database`)
 					doClose(connection, resultSet); // always close the ResultSet
 					resolve(2) // 传送完后 resolve => 执行349行
 				  } else if (rows.length > 0) {
@@ -347,7 +347,7 @@ async function upload(sqlStr, OrgId, UploadParam, uuid, transNum, url, bindPara,
 					if (data) {
 						const { errMsg } = data
 						if (errMsg != null) {
-							console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
+							// console.log(`Fetch(&Post) ${UploadParam} dataSet(#${batchs}}) successful from Database...`)
 							batchs ++
 							var ret = await fetchRowsFromRS(connection, resultSet, numRows, OrgId, UploadParam, uuid, transNum, batch, url)
 							// console.log(`逐个跳出递归${ret}`)
