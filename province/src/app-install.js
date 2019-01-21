@@ -6,7 +6,7 @@ const { SCRIPT } = require('./config')
 var svc = new Service({
   name:'Schedule Province',
   description: 'Schedule that post date to province.',
-  script: require('path').join(__dirname,SCRIPT),
+  script: SCRIPT,
   env:{
     name: "NODE_ENV",
     value: "production"
@@ -16,8 +16,7 @@ var svc = new Service({
 // Listen for the "install" event, which indicates the
 // process is available as a service.
 svc.on('install',function(){
-  const path = require('path').join(__dirname,SCRIPT)
-  console.log(`the script path is ${path}`)
+  console.log(`the script path is ${SCRIPT}`)
 
   svc.start();
 });

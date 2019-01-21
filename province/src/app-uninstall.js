@@ -5,7 +5,7 @@ const { SCRIPT } = require('./config')
 // Create a new service object
 var svc = new Service({
   name:'Schedule Province',
-  script: require('path').join(__dirname, SCRIPT)
+  script: SCRIPT
 });
 
 // Listen for the "uninstall" event so we know when it's done.
