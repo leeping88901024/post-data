@@ -4,13 +4,9 @@ const { SCRIPT } = require('./config')
 
 // Create a new service object
 var svc = new Service({
-  name:'Schedule Province',
+  name:'APost1',
   description: 'Schedule that post date to province.',
-  script: SCRIPT,
-  env:{
-    name: "NODE_ENV",
-    value: "production"
-  }
+  script: SCRIPT
 });
 
 // Listen for the "install" event, which indicates the

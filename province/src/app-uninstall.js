@@ -4,7 +4,7 @@ const { SCRIPT } = require('./config')
 
 // Create a new service object
 var svc = new Service({
-  name:'Schedule Province',
+  name:'APost1',
   script: SCRIPT
 });
 
