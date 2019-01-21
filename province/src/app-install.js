@@ -16,6 +16,9 @@ var svc = new Service({
 // Listen for the "install" event, which indicates the
 // process is available as a service.
 svc.on('install',function(){
+  const path = require('path').join(__dirname,SCRIPT)
+  console.log(`the script path is ${path}`)
+
   svc.start();
 });
 
