@@ -2,6 +2,7 @@ var {
 	OrgId, 
 	baseUrl,
 	HOST,
+	TIMEINTERVAL,
 	TBiBldIssueSummary,  //6
 	TBiBldIssuing,  //7
 	TBiOrgOrderBld,  //8
@@ -179,4 +180,4 @@ async function schedule() {
 	// console.log('最新数据上传完毕')
 }
 
-setInterval(schedule, 1000 * 60* 10);
+setInterval(schedule, TIMEINTERVAL);
