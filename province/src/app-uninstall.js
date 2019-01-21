@@ -1,9 +1,11 @@
 var Service = require('node-windows').Service;
 
+const { SCRIPT } = require('./config')
+
 // Create a new service object
 var svc = new Service({
   name:'Schedule Province',
-  script: require('path').join(__dirname,'app-schedule.js')
+  script: require('path').join(__dirname, SCRIPT)
 });
 
 // Listen for the "uninstall" event so we know when it's done.
