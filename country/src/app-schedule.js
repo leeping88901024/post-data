@@ -4,6 +4,7 @@ const { base } = require('./config')
 const { result } = require('./utils')
 const { post_date } = require('./config')
 const { 
+	fetchNum,
     BLOODSTATION_REAGENT, // 1. 检测试剂信息
     BLOODSTATION_PREP, // 2. 血液制备记录
     BLOODSTATION_ISSUE, // 3. 血液供应记录
@@ -40,7 +41,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
 	  commit;
 	end;`
-    var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, 1000)
+    var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, fetchNum)
     result(ret1, BLOODSTATION_REAGENT)
 
     // 2. 血液制备记录
@@ -56,7 +57,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/preparation/update';
 	  commit;
 	end;`
-    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, 1000)
+    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, fetchNum)
     result(ret2, BLOODSTATION_PREP)
 
     // 3. 血液供应记录   
@@ -72,10 +73,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/publicuse/update';
 	  commit;
 	end;`
-    var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, 1000)
+    var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, fetchNum)
     result(ret3, BLOODSTATION_ISSUE)
 
-    // 4. 血液调剂记录    ___________OK but + 调入_____________
+    // 4. 血液调剂记录
     sql = `declare
 	 last_post varchar2(100);
 	 now_post varchar2(100);
@@ -88,7 +89,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/adjust/update';
 	  commit;
 	end;`
-    var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, 1000)
+    var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, fetchNum)
     result(ret4, BLOODSTATION_ADJUST)
 
     // 5. 血液报废记录
@@ -104,7 +105,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/scrapped/update';
 	  commit;
 	end;`
-    var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, 1000)
+    var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, fetchNum)
     result(ret5, BLOODSTATION_SCRAPPED)
 
     // 7. 献血者信息接口
@@ -120,7 +121,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/update';
 	  commit;
 	end;`
-    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, 1000)
+    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, fetchNum)
     result(ret7, `7.${BLOODSTATION_DONOR}`)
 
     // 8. 特殊稀有血型献血者信息
@@ -136,7 +137,7 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/unusual/update';
 	  commit;
 	end;`
-    var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, 1000)
+    var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, fetchNum)
     result(ret8, BLOODSTATION_UNUSUAL)
 
     // 9. 无偿献血偿还记录 
@@ -152,14 +153,14 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/management/payback/update';
 	  commit;
 	end;`
-    var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, 1000)
+    var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, fetchNum)
     result(ret9, BLOODSTATION_PAYBACK)
 
     // -s
 
     // 6. 库存记录  -- 覆盖
     sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
-    var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, 1000)
+    var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, fetchNum)
     result(ret5, BLOODSTATION_STOCKRECORD)
 }
 
