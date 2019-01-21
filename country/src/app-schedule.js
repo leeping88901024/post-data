@@ -16,8 +16,7 @@ const {
  } = base
 
  const {
-     post_date_from,
-     post_date_to
+     time_interval
  } = post_date
 
 const schedule = async () => {
@@ -164,4 +163,4 @@ const schedule = async () => {
     result(ret5, BLOODSTATION_STOCKRECORD)
 }
 
-setInterval(schedule, 1000 * 60 * 10);
+setInterval(schedule, time_interval);
