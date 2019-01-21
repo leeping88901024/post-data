@@ -2,22 +2,14 @@ var {
 	OrgId, 
 	baseUrl,
 	HOST,
-    TBiUseBldOrgan,  //1
-	TBiBldAllocation,  //2
-	TBiBldRefund,  //3
-	TBiBldReimburs,   //4
-	TBiBldAllocationSummary,  //5 
 	TBiBldIssueSummary,  //6
 	TBiBldIssuing,  //7
 	TBiOrgOrderBld,  //8
 	TBiOrgOrderBldSummary,  //9 
 	TBiBldIssuingDetail, //10
 	TBiBlacklist,  //11
-	TBiHospitalInfo, //12
 	TBiHospIllmanUsebld, //13
 	TBiHospTransReaction, //14
-	TBiHospStock, //15
-	TBiHospStockDetail,  //16
 } = require('./config')
 var { upload, getStatus, PingHost } = require('./api')
 var oracledb = require('oracledb')
@@ -29,15 +21,15 @@ async function schedule() {
 	// ping host to check host
     var res = await PingHost(HOST)
     if (!res.alive) {
-        console.log(`Ping host <${HOST}> fail, please check the network connection.`)
+        // console.log(`Ping host <${HOST}> fail, please check the network connection.`)
         return
 	}
 	// ready to post data
 	var data = await getStatus(`${baseUrl}/Status`)
-	console.log(data)
+	// console.log(data)
 	const { errMsg } = data
 	if (!errMsg) {
-		console.error(errMsg)
+		// console.error(errMsg)
 		return
 	}
 	// 7.血站血液发放单数据集 TBiBldIssuing
@@ -60,7 +52,7 @@ async function schedule() {
 	  commit;
 	end;`
 	var ret7 = await upload(sql, OrgId, TBiBldIssuing, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000)
-	console.log(`数据集（最新）: ${TBiBldIssuing} 上传完毕。Flag: ${ret7}`)
+	// console.log(`数据集（最新）: ${TBiBldIssuing} 上传完毕。Flag: ${ret7}`)
 	// 变更sql和参数
 	
 	// 10.血液发放单明细数据集 TBiBldIssuingDetail
@@ -78,7 +70,7 @@ async function schedule() {
 	  commit;
 	end;`
 	var ret10 = await upload(sql, OrgId, TBiBldIssuingDetail, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiBldIssuingDetail} 上传完毕。Flag: ${ret10}`)
+	// console.log(`数据集（最新）: ${TBiBldIssuingDetail} 上传完毕。Flag: ${ret10}`)
 
 	// 6.血液发放汇总数据集 TBiBldIssueSummary
 	sql = `declare
@@ -95,7 +87,7 @@ async function schedule() {
 	  commit;
 	end;`
 	var ret6 = await upload(sql, OrgId, TBiBldIssueSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiBldIssueSummary} 上传完毕。Flag: ${ret6}`)
+	// console.log(`数据集（最新）: ${TBiBldIssueSummary} 上传完毕。Flag: ${ret6}`)
 
 	// ### 订血
 	// 8.机构订血单据信息数据集 TBiOrgOrderBld
@@ -130,7 +122,7 @@ async function schedule() {
 	  commit;
 	end;`
 	var ret9 = await upload(sql, OrgId, TBiOrgOrderBldSummary, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiOrgOrderBldSummary} 上传完毕。Flag: ${ret9}`)
+	// console.log(`数据集（最新）: ${TBiOrgOrderBldSummary} 上传完毕。Flag: ${ret9}`)
 
 	// 11.黑名单信息数据集 TBiBlacklist
 	// 最早数据 1990/12/31
@@ -148,7 +140,7 @@ async function schedule() {
 	  commit;
 	end;`
     var ret11 = await upload(sql, OrgId, TBiBlacklist, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiBlacklist} 上传完毕。Flag: ${ret11}`)
+	// console.log(`数据集（最新）: ${TBiBlacklist} 上传完毕。Flag: ${ret11}`)
 
 	// ## 医院
 	// 13.医院患者用血信息数据集 TBiHospIllmanUsebld
@@ -166,7 +158,7 @@ async function schedule() {
 	  commit;
 	end;`
     var ret13 = await upload(sql, OrgId, TBiHospIllmanUsebld, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiHospIllmanUsebld} 上传完毕。Flag: ${ret13}`)
+	// console.log(`数据集（最新）: ${TBiHospIllmanUsebld} 上传完毕。Flag: ${ret13}`)
 
 	// 14.医院输血反应信息数据集 TBiHospTransReaction
 	sql = `declare
@@ -183,8 +175,8 @@ async function schedule() {
 	  commit;
 	end;`
 	var ret14 = await upload(sql, OrgId, TBiHospTransReaction, '20563ef7e39645a984fac3b799282ec5', '10', `${baseUrl}/uploaddataserv`, bindPara, {}, 1000);
-	console.log(`数据集（最新）: ${TBiHospTransReaction} 上传完毕。Flag: ${ret14}`)
-	console.log('最新数据上传完毕')
+	// console.log(`数据集（最新）: ${TBiHospTransReaction} 上传完毕。Flag: ${ret14}`)
+	// console.log('最新数据上传完毕')
 }
 
 setInterval(schedule, 1000 * 60* 10);
