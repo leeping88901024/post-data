@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node helloworld.js",
-    "postinstall": "winser -i -s -c",
-    "preuninstall": "winser -r -x -s"
+    
   },
   "keywords": [],
   "author": "",
