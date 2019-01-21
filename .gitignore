@@ -4,3 +4,4 @@ country/node_modules
 province/src/config.js
 country/src/config
 test/node_modules
+test/package-lock.json
