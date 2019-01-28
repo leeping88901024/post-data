@@ -7,7 +7,7 @@ const { BASEURL, TOKENURL, PID, KEY, UID, TOKENURL2 } = base
 
 const instance = axios.create({
     baseURL: BASEURL,
-    timeout: 1000 * 60* 10,
+    timeout: 1000 * 60 * 60 * 24, // 24h timeout
     headers: { 'Content-Type': 'application/json' }
 }) 
 
