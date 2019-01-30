@@ -26,7 +26,7 @@ const { PingHost } = require('./checkHost')
 // 使用https在这里设置证书
 
 const instance = axios.create({
-	timeout: 1000 * 60 * 60,
+	timeout: 1000 * 60 * 60 * 24,
 	  
 })
 
