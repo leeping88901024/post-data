@@ -131,7 +131,7 @@ const mapped = (url, rows) => {
                     Hiv_yang: x[16],
                     Hiv_qrrq: x[17],
                     Pb_jsrq: x[18],
-                    Is_fixed: x[29]
+                    Is_fixed: x[19]
                 }
             })
             return ret7
