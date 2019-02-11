@@ -25,17 +25,10 @@ var {
     post_date_to,
     fetchNum
 } = require('./config-post-date')
-var { upload, getStatus, PingHost } = require('./api')
+var { upload, getStatus } = require('./api')
 var oracledb = require('oracledb')
 
 var app = async (baseUrl, host) => {
-    // ping host to check host
-    var res = await PingHost(host)
-    if (!res.alive) {
-        console.log(`Ping host <${host}> fail, please check the network connection.`)
-        return
-    }
-
     // ready to post data
     var data = await getStatus(`${baseUrl}/Status`)
     console.log(data)

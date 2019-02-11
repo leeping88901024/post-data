@@ -12,19 +12,13 @@ var {
 	TBiHospIllmanUsebld, //13
 	TBiHospTransReaction, //14
 } = require('./config')
-var { upload, getStatus, PingHost } = require('./api')
+var { upload, getStatus } = require('./api')
 var oracledb = require('oracledb')
 var sql
 var bindPara
 
 
 async function schedule() {
-	// ping host to check host
-    var res = await PingHost(HOST)
-    if (!res.alive) {
-        console.log(`Ping host <${HOST}> fail, please check the network connection.`)
-        return
-	}
 	// ready to post data
 	var data = await getStatus(`${baseUrl}/Status`)
 	console.log(data)

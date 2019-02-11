@@ -35,7 +35,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_reagent(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_reagent(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/reagent/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
@@ -51,7 +51,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/preparation/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_prep(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_prep(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/preparation/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/preparation/update';
@@ -67,7 +67,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/publicuse/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_issue(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_issue(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/publicuse/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/publicuse/update';
@@ -83,7 +83,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/adjust/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_adjust(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_adjust(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/adjust/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/adjust/update';
@@ -99,7 +99,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/businessinfo/scrapped/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_scrapped(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_scrapped(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/businessinfo/scrapped/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/scrapped/update';
@@ -115,7 +115,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/devotepeople/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_donor(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_donor(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/devotepeople/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/update';
@@ -131,7 +131,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/devotepeople/unusual/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_unusual(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_unusual(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/devotepeople/unusual/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/unusual/update';
@@ -147,7 +147,7 @@ const schedule = async () => {
 	begin
 	  select t.sign_date into last_post from CEN_SCHEDULE2 t where t.sign_type = 'api/bloodstation/management/payback/update';
 	  select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') into now_post from dual;
-	  :ret := hhhhhhhh.bloodstation_payback(last_post, now_post);
+	  :ret := f2webpostcountry.bloodstation_payback(last_post, now_post);
 	  -- 插入或者变更时间标记
 	  -- insert into cen_schedule2(sign_date, sign_type, post_date) values(now_post, 'api/bloodstation/management/payback/update',sysdate)
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/management/payback/update';
@@ -159,7 +159,7 @@ const schedule = async () => {
     // -s
 
     // 6. 库存记录  -- 覆盖
-    sql = `begin :ret := hhhhhhhh.bloodstation_stockrecord; end;`
+    sql = `begin :ret := f2webpostcountry.bloodstation_stockrecord; end;`
     var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, fetchNum)
     result(ret5, BLOODSTATION_STOCKRECORD)
 }
