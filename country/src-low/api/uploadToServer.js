@@ -14,7 +14,7 @@ const uploadToServer = (postData, url) => {
 	return new Promise( (resolve, reject) => {
         try {
             getACK().then(rett => {
-                var { data } = rett
+                var data = rett.data
                 if (data.success ===1) {
                     getToken2().then(ret => {
                         const Token = ret.data

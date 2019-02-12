@@ -10,13 +10,15 @@ const instance = axios.create({
     headers: { 'Content-Type': 'application/json' }
 })
 
-const getACK = async () => {
+const getACK = () => {
     try {
-        const ret = await getToken2()
-        const Token = ret.data
-        const res = await instance.post(BLOODSTATION_MARKED, { mc: NM }, { headers: { Token, 'Pid': PID, 'Uid': UID } })
-        const { data } = res
-        return { data, Token }
+        getToken2().then(ret => {
+            const Token = ret.data 
+            instance.post(BLOODSTATION_MARKED, { mc: NM }, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then( res => {
+                const { data } = res
+                return { data, Token }
+            })
+        }) 
 
     } catch (error) {
         console.log(error)

@@ -57,7 +57,7 @@ const fetchRowsFromRS = (connection, resultSet, numRows, url) => {
 const doRelease = (connection) => {
     return new Promise((resolve, reject) => {
         try {
-            let promise = connection.close()
+            var promise = connection.close()
             resolve(promise)
         } catch (error) {
             reject(error)
