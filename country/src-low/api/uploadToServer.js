@@ -13,7 +13,8 @@ const instance = axios.create({
 const uploadToServer = (postData, url) => {
 	return new Promise( (resolve, reject) => {
         try {
-            getACK().then(({data}) => {
+            getACK().then(rett => {
+                var { data } = rett
                 if (data.success ===1) {
                     getToken2().then(ret => {
                         const Token = ret.data
