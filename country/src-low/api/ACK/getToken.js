@@ -29,19 +29,20 @@ const getToken = async () => {
     })
 }
 
-const getToken2 = async () => {
-    return new Promise(async (resolve, reject) => {
+const getToken2 = () => {
+    return new Promise((resolve, reject) => {
         try {
             var tms = dayjs(new Date()).format('YYYYMMDDHHmmss')
             var sign = md5((PID + UID + tms).toLowerCase(), KEY).toLowerCase()
-            const res = await instance.post(TOKENURL2, {
+            instance.post(TOKENURL2, {
                 partner_id: PID,
                 uid: UID,
                 tms,
                 sign
+            }).then(res => {
+                const { data } = res
+                resolve(data)
             })
-            const { data } = res
-            resolve(data)
         } catch (error) {
             reject(error)
         }

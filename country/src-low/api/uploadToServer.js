@@ -10,19 +10,22 @@ const instance = axios.create({
     headers: { 'Content-Type': 'application/json' }
 }) 
 
-const uploadToServer = async (postData, url) => {
-	return new Promise(async (resolve, reject) => {
+const uploadToServer = (postData, url) => {
+	return new Promise( (resolve, reject) => {
         try {
-            const { data } = await getACK()
-            if (data.success ===1) {
-                const ret = await getToken2()
-                const Token = ret.data
-                const res = await instance.post(url, postData, { headers: { Token, 'Pid': PID, 'Uid': UID } })
-                let { data } = res
-                resolve(data)
-            } else {
-                reject('ACK fail')
-            }
+            getACK().then(({data}) => {
+                if (data.success ===1) {
+                    getToken2().then(ret => {
+                        const Token = ret.data
+                        instance.post(url, postData, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then(res => {
+                            let { data } = res
+                            resolve(data)
+                        })
+                    })
+                } else {
+                    reject('ACK fail')
+                }
+            })
         } catch (error) {
             reject(error)
         }

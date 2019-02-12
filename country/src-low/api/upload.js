@@ -6,43 +6,47 @@ const { uploadToServer } = require('./uploadToServer')
 const { dbConn } = require('../config')
 
 var batchs = 1
-const upload = async (url, bindPara, sql, fetchNum) => {
-    return new Promise(async (resolve, reject) => {
+const upload = (url, bindPara, sql, fetchNum) => {
+    return new Promise((resolve, reject) => {
         try {
-            // batchs = 1
-            let conn
-            conn = await oracledb.getConnection(dbConn)
-            let result = await conn.execute(sql, bindPara)
-            let ret = await fetchRowsFromRS(conn, result.outBinds.ret, fetchNum, url)
-            resolve(ret)
+            oracledb.getConnection(dbConn).then(conn => {
+                conn.execute(sql, bindPara).then(result => {
+                    fetchRowsFromRS(conn, result.outBinds.ret, fetchNum, url).then(ret => {
+                        resolve(ret)
+                    })
+                })
+            })
         } catch (error) {
             reject(error)
         }
     })
 }
 
-const fetchRowsFromRS = async (connection, resultSet, numRows, url) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let rows = await resultSet.getRows(numRows)
-            if (rows.length === 0) {
-                // console.log('no rows, or no more rows')
-                console.log(`Posted ( ${url} ) dataSet successful from Database`)
-                await doClose(connection, resultSet)
-                resolve(2)
-            } else if (rows.length > 0) {
-                const postData = mapped(url, rows)
-				// console.log(postData)
-                var ret = await uploadToServer(postData, url)
-                if (ret.success === 1) {
-                    console.log(`Fetch(&Post) ( ${url} ) dataSet(#${batchs}}) successful from Database...`)
-                    batchs ++
-                    var p = fetchRowsFromRS(connection, resultSet, numRows, url)
-                    resolve(p)
-                } else {
-                    console.log(`Fail post, message: ${JSON.stringify(ret)}`)
+const fetchRowsFromRS = (connection, resultSet, numRows, url) => {
+    return new Promise((resolve, reject) => {
+        try { 
+            resultSet.getRows(numRows).then(rows => {
+                if (rows.length === 0) {
+                    // console.log('no rows, or no more rows')
+                    console.log(`Posted ( ${url} ) dataSet successful from Database`)
+                    doClose(connection, resultSet).then(() => {
+                        resolve(2)
+                    })
+                } else if (rows.length > 0) {
+                    const postData = mapped(url, rows)
+                    // console.log(postData) 
+                    uploadToServer(postData, url).then(ret => {
+                        if (ret.success === 1) {
+                            console.log(`Fetch(&Post) ( ${url} ) dataSet(#${batchs}}) successful from Database...`)
+                            batchs ++
+                            var p = fetchRowsFromRS(connection, resultSet, numRows, url)
+                            resolve(p)
+                        } else {
+                            console.log(`Fail post, message: ${JSON.stringify(ret)}`)
+                        }
+                    })
                 }
-            }
+            })
         } catch (error) {
             reject(error)
         }
@@ -51,7 +55,7 @@ const fetchRowsFromRS = async (connection, resultSet, numRows, url) => {
 
 // Note: connections should always be released when not needed
 const doRelease = (connection) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         try {
             let promise = connection.close()
             resolve(promise)
@@ -62,11 +66,13 @@ const doRelease = (connection) => {
 }
   
 const doClose = (connection, resultSet) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         try {
-            let promise = await resultSet.close()
-			await doRelease(connection)
-            resolve(promise)
+            resultSet.close().then(promise => {
+                doRelease(connection).then(() => {
+                    resolve(promise)
+                })
+            })
         } catch (error) {
             reject(error)
         }

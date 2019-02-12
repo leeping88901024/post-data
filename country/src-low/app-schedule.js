@@ -20,7 +20,7 @@ const {
      time_interval
  } = post_date
 
-const schedule = async () => {
+const schedule = () => {
     var sql
     var bindPara 
    // -b
@@ -41,8 +41,9 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/reagent/update';
 	  commit;
 	end;`
-    var ret1 = await upload(BLOODSTATION_REAGENT, bindPara, sql, fetchNum)
-    result(ret1, BLOODSTATION_REAGENT)
+    upload(BLOODSTATION_REAGENT, bindPara, sql, fetchNum).then(ret1 => {
+			result(ret1, BLOODSTATION_REAGENT)
+		})
 
     // 2. 血液制备记录
     sql = `declare
@@ -57,8 +58,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/preparation/update';
 	  commit;
 	end;`
-    var ret2 = await upload(BLOODSTATION_PREP, bindPara, sql, fetchNum)
-    result(ret2, BLOODSTATION_PREP)
+    upload(BLOODSTATION_PREP, bindPara, sql, fetchNum).then(ret2 => {
+			result(ret2, BLOODSTATION_PREP)
+		})
+    
 
     // 3. 血液供应记录   
     sql = `declare
@@ -73,8 +76,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/publicuse/update';
 	  commit;
 	end;`
-    var ret3 = await upload(BLOODSTATION_ISSUE, bindPara, sql, fetchNum)
-    result(ret3, BLOODSTATION_ISSUE)
+    upload(BLOODSTATION_ISSUE, bindPara, sql, fetchNum).then(ret3 => {
+			result(ret3, BLOODSTATION_ISSUE)
+		})
+    
 
     // 4. 血液调剂记录
     sql = `declare
@@ -89,8 +94,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/adjust/update';
 	  commit;
 	end;`
-    var ret4 = await upload(BLOODSTATION_ADJUST, bindPara, sql, fetchNum)
-    result(ret4, BLOODSTATION_ADJUST)
+    upload(BLOODSTATION_ADJUST, bindPara, sql, fetchNum).then(ret4 => {
+			result(ret4, BLOODSTATION_ADJUST)
+		})
+    
 
     // 5. 血液报废记录
     sql = `declare
@@ -105,8 +112,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/businessinfo/scrapped/update';
 	  commit;
 	end;`
-    var ret5 = await upload(BLOODSTATION_SCRAPPED, bindPara, sql, fetchNum)
-    result(ret5, BLOODSTATION_SCRAPPED)
+    upload(BLOODSTATION_SCRAPPED, bindPara, sql, fetchNum).then(ret5 => {
+			result(ret5, BLOODSTATION_SCRAPPED)
+		})
+    
 
     // 7. 献血者信息接口
     sql = `declare
@@ -121,8 +130,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/update';
 	  commit;
 	end;`
-    var ret7 = await upload(BLOODSTATION_DONOR, bindPara, sql, fetchNum)
-    result(ret7, `7.${BLOODSTATION_DONOR}`)
+    upload(BLOODSTATION_DONOR, bindPara, sql, fetchNum).then(ret7 => {
+			result(ret7, `7.${BLOODSTATION_DONOR}`)
+		})
+    
 
     // 8. 特殊稀有血型献血者信息
     sql = `declare
@@ -137,8 +148,10 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/devotepeople/unusual/update';
 	  commit;
 	end;`
-    var ret8 = await upload(BLOODSTATION_UNUSUAL, bindPara, sql, fetchNum)
-    result(ret8, BLOODSTATION_UNUSUAL)
+    upload(BLOODSTATION_UNUSUAL, bindPara, sql, fetchNum).then(ret8 => {
+			result(ret8, BLOODSTATION_UNUSUAL)
+		})
+    
 
     // 9. 无偿献血偿还记录 
     sql = `declare
@@ -153,15 +166,19 @@ const schedule = async () => {
 	  update cen_schedule2 t set t.sign_date = to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'), t.post_date = sysdate where t.sign_type = 'api/bloodstation/management/payback/update';
 	  commit;
 	end;`
-    var ret9 = await upload(BLOODSTATION_PAYBACK, bindPara, sql, fetchNum)
-    result(ret9, BLOODSTATION_PAYBACK)
+    upload(BLOODSTATION_PAYBACK, bindPara, sql, fetchNum).then(ret9 =>{
+			result(ret9, BLOODSTATION_PAYBACK)
+		})
+    
 
     // -s
 
     // 6. 库存记录  -- 覆盖
     sql = `begin :ret := f2webpostcountry.bloodstation_stockrecord; end;`
-    var ret5 = await upload(BLOODSTATION_STOCKRECORD, bindPara, sql, fetchNum)
-    result(ret5, BLOODSTATION_STOCKRECORD)
+    upload(BLOODSTATION_STOCKRECORD, bindPara, sql, fetchNum).then(ret5 => {
+			result(ret5, BLOODSTATION_STOCKRECORD)
+		})
+    
 }
 
 setInterval(schedule, time_interval);

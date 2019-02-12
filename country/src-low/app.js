@@ -21,7 +21,7 @@ const {
      post_date_to
  } = post_date
 
-const app = async () => {
+const app = () => {
     var sql
     var bindPara 
    // -b
