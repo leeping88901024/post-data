@@ -24,7 +24,7 @@ const upload = (url, bindPara, sql, fetchNum) => {
 
 const fetchRowsFromRS = (connection, resultSet, numRows, url) => {
     return new Promise((resolve, reject) => {
-        try { 
+        try {
             resultSet.getRows(numRows).then(rows => {
                 if (rows.length === 0) {
                     // console.log('no rows, or no more rows')
@@ -34,7 +34,7 @@ const fetchRowsFromRS = (connection, resultSet, numRows, url) => {
                     })
                 } else if (rows.length > 0) {
                     const postData = mapped(url, rows)
-                    // console.log(postData) 
+                    // console.log(postData)
                     uploadToServer(postData, url).then(ret => {
                         if (ret.success === 1) {
                             console.log(`Fetch(&Post) ( ${url} ) dataSet(#${batchs}}) successful from Database...`)
@@ -57,7 +57,7 @@ const fetchRowsFromRS = (connection, resultSet, numRows, url) => {
 const doRelease = (connection) => {
     return new Promise((resolve, reject) => {
         try {
-            var promise = connection.close()
+            const promise = connection.close()
             resolve(promise)
         } catch (error) {
             reject(error)

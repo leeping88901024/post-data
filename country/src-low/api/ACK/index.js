@@ -13,13 +13,12 @@ const instance = axios.create({
 const getACK = () => {
     try {
         getToken2().then(ret => {
-            const Token = ret.data 
-            instance.post(BLOODSTATION_MARKED, { mc: NM }, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then( res => {
+            const Token = ret.data
+            instance.post(BLOODSTATION_MARKED, { mc: NM }, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then(res => {
                 const { data } = res
                 return { data, Token }
             })
-        }) 
-
+        })
     } catch (error) {
         console.log(error)
     }

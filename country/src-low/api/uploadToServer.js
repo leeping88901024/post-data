@@ -11,16 +11,15 @@ const instance = axios.create({
 }) 
 
 const uploadToServer = (postData, url) => {
-	return new Promise( (resolve, reject) => {
+	return new Promise((resolve, reject) => {
         try {
             getACK().then(rett => {
-                const data1 = rett.data
-                if (data1.success ===1) {
+                const { data } = rett
+                if (data.success ===1) {
                     getToken2().then(ret => {
                         const Token = ret.data
                         instance.post(url, postData, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then(res => {
-                            const { data } = res
-                            resolve(data)
+                            resolve(res.data)
                         })
                     })
                 } else {

@@ -1,10 +1,11 @@
 var ping = require('ping')
 
-const PingHost = async (host) => {
-    return new Promise(async (resolve, reject) => {
+const PingHost = (host) => {
+    return new Promise((resolve, reject) => {
         try {
-            var res = await ping.promise.probe(host)
-            resolve(res)
+            ping.promise.probe(host).then(res => {
+                resolve(res)
+            })
         } catch (error) {
             reject(error)
         }
