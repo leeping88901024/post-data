@@ -1,9 +1,19 @@
 {
+   "presets": [
+      [
+        "env", {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
     "plugins": [
        ["transform-es2015-arrow-functions"],
        ["babel-plugin-transform-es2015-destructuring"],
        ["babel-plugin-transform-es2015-spread"],
        ["babel-plugin-transform-object-rest-spread"],
+       ["babel-plugin-transform-async-to-generator"]
      ]
   }
   
