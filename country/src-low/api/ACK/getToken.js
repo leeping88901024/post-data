@@ -10,9 +10,9 @@ const instance = axios.create({
     timeout: 1000 * 60 * 60 * 24, // 24h timeout
     headers: { 'Content-Type': 'application/json' }
 }) 
-
-const getToken = async () => {
-    return new Promise(async (resolve, reject) => {
+/*
+const getToken = () => {
+    return new Promise((resolve, reject) => {
         try {
             var tms = dayjs(new Date()).format('YYYYMMDDHHmmss')
             var sign = md5((PID + tms).toLowerCase(), KEY).toLowerCase()
@@ -28,7 +28,7 @@ const getToken = async () => {
         }
     })
 }
-
+*/
 const getToken2 = () => {
     return new Promise((resolve, reject) => {
         try {
@@ -50,6 +50,6 @@ const getToken2 = () => {
 }
 
 module.exports = {
-    getToken,
+    //getToken,
     getToken2
 }
