@@ -1,13 +1,4 @@
 {
-  "presets": [
-    [
-      "env", {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ]
-  ],
     "plugins": [
        ["transform-es2015-arrow-functions"],
        ["babel-plugin-transform-es2015-destructuring"],
