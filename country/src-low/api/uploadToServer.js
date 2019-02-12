@@ -14,12 +14,12 @@ const uploadToServer = (postData, url) => {
 	return new Promise( (resolve, reject) => {
         try {
             getACK().then(rett => {
-                var data1 = rett.data
+                const data1 = rett.data
                 if (data1.success ===1) {
                     getToken2().then(ret => {
                         const Token = ret.data
                         instance.post(url, postData, { headers: { Token, 'Pid': PID, 'Uid': UID } }).then(res => {
-                            var { data } = res
+                            const { data } = res
                             resolve(data)
                         })
                     })
