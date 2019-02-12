@@ -1,4 +1,3 @@
-require("babel-polyfill")
 var oracledb = require('oracledb')
 const { upload } = require('./api')
 const { base } = require('./config')
